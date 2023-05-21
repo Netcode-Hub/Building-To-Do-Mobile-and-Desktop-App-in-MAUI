@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Maui.ToDoList.MainPage"
+             xmlns:viewmodel="clr-namespace:Maui.ToDoList.ViewModels"
+             x:DataType="viewmodel:MainPageViewModel">
+ 
+    
+ <!--Task Starting-->
+    <Grid RowDefinitions="100, Auto, Auto, *"
+          ColumnDefinitions=".75*, .25*"
+          Padding="10"
+          RowSpacing="10"
+          ColumnSpacing="10">
+
+        <Image Source="dotnet_bot.png"
+               Grid.ColumnSpan="2"
+               Grid.Row="0"/>
+
+        <Entry Placeholder="Enter Your Task"
+               PlaceholderColor="Black"
+               Grid.Column="0"
+               Grid.Row="1"
+               Text="{Binding Text}"/>
+
+        <Button Text="+ Add Task" Grid.Column="1" Grid.Row="1" Command="{Binding AddCommand}"/>
+
+        <Frame Grid.Row="2" 
+               Grid.ColumnSpan="2">
+            <Label Text="MY TASKS"
+                   FontSize="25"
+                   TextColor="blue"
+                   BackgroundColor="Transparent"
+                   FontFamily="Tahoma"
+                   HorizontalOptions="Center"/>
+
+        </Frame>
+
+        <!--Default one-->
+        <!--<CollectionView Grid.Row="3"
+                        Grid.ColumnSpan="2">
+            <CollectionView.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>Will go to school</x:String>
+                    <x:String>Will go to Supermarket</x:String>
+                    <x:String>Perform house chores</x:String>
+                    <x:String>Rest for sometime</x:String>
+                    <x:String>Prepare some food</x:String>
+                </x:Array>
+            </CollectionView.ItemsSource>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="0,5">
+                        <Frame>
+                            <Label Text="{Binding .}"
+                                   FontSize="18"/>
+                        </Frame>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            
+        </CollectionView>-->
+
+        <!--from MVVM-->
+        <CollectionView Grid.Row="3" Grid.ColumnSpan="2" ItemsSource="{Binding Items}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="{x:Type x:String}">
+                    <SwipeView>
+                        <SwipeView.RightItems>
+                            <SwipeItems>
+                                <SwipeItem Text="Delete"
+                                           BackgroundColor="red"
+                                           CommandParameter="{Binding .}"
+                                           Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainPageViewModel}}, Path=DeleteCommand}"/>
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+                        <Grid Padding="0,5">
+                            <Frame>
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainPageViewModel}}, Path=TapCommand}"
+                                                          CommandParameter="{Binding .}"/>
+                                </Frame.GestureRecognizers>
+                                <Label Text="{Binding .}"
+                                   FontSize="18"/>
+                            </Frame>
+                        </Grid>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+    </Grid>
+
+</ContentPage>

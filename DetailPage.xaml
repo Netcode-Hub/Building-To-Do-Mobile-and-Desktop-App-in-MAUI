@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Maui.ToDoList.DetailPage"
+             Title="DetailPage"
+             xmlns:viewmodel="clr-namespace:Maui.ToDoList.ViewModels"
+             x:DataType="viewmodel:DetailPageViewModel">
+
+    <Grid RowDefinitions="Auto, Auto"
+          ColumnDefinitions=".50*, .50*">
+
+        <Label Grid.Row="0"
+               Grid.ColumnSpan="2"
+            Text="{Binding Text}"
+            FontSize="20"/>
+
+        <Button Text="Go to Home"
+                Command="{Binding GoHomeCommand}"
+                Grid.Row="1"
+                Grid.Column="0"/>
+
+        <Button Text="Go Back"
+                Command="{Binding GoBackCommand}"
+                Grid.Row="1"
+                Grid.Column="1"/>
+    </Grid>
+</ContentPage>
